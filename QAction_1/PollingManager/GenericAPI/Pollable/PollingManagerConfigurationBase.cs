@@ -7,7 +7,11 @@
 
 	public abstract class PollingManagerConfigurationBase
 	{
-		public PollingManagerConfigurationBase(SLProtocol protocol) => Protocol = protocol;
+		public PollingManagerConfigurationBase(SLProtocol protocol)
+		{
+			Protocol = protocol;
+			Dependencies = new List<Dependency>();
+		}
 
 		public SLProtocol Protocol { get; set; }
 
@@ -15,7 +19,7 @@
 
 		protected abstract Dictionary<string, PollableBase> Rows { get; set; }
 
-		protected abstract List<Dependency> Dependencies { get; set; }
+		protected List<Dependency> Dependencies { get; set; }
 
 		public void Create()
 		{
@@ -23,8 +27,12 @@
 			CreateDependencies();
 		}
 
-		protected abstract void CreateRelations();
+		protected virtual void CreateRelations()
+		{
+		}
 
-		protected abstract void CreateDependencies();
+		protected virtual void CreateDependencies()
+		{
+		}
 	}
 }
